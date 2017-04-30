@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+#/ Usage: <homer> (-iliad or -odyssey) [options]...
+#/ Fetch content from homers epics by book and line
+# ** Tip: use #/ lines to define the --help usage message.
+$stderr.sync = true
+require 'optparse'
+require 'pry'
+require 'ox'
+require 'awesome_print'
+require 'roman-numerals'
+require 'net/http'
+require 'uri'
+
+# default options
+ILIAD = 1
+ODYSSEY = 2
+options = {
+  title: nil,
+  translate: false,
+  language: "grc", #or "eng" or "lat"
+  books: [1],#[1, 21, 13]
+  lines: [1]#[1, 108, 257]
+}
+# parse arguments
+file = __FILE__
+optparse = OptionParser.new do |opts|
+  opts.on("-translate", "--translate") {
+    options[:translate] = true
+  }
+  opts.on("-iliad", "--iliad") {
+    options[:title] = ILIAD
+  }
+  opts.on("-odyssey", "--odyssey") {
+    options[:title] = ODYSSEY
+  }
+  opts.on("-lang", "--language=val", String) { |val|
+    options[:language] = val
+  }
+  opts.on("-b", "--book=val", Integer) { |val|
+    options[:books] = [val]
+  }
+  opts.on("-l", "--line=val", Integer) { |val|
+    options[:lines] = [val]
+  }
+  opts.on("--books=[x,y,z]", Array) { |val|
+    options[:books] = val
+  }
+  opts.on("--lines=[x,y,z]", Array) { |val|
+    options[:lines] = val
+  }
+  opts.on_tail("-h", "--help") {
+    exec "grep ^#/<'#{file}'|cut -c4-"
+  }
+end
+optparse.parse!
+
+raise "Please provide the title of the work you are looking for -> odyssey or iliad".red if options[:title].nil?
+
+def open(url)
+  Net::HTTP.get(URI.parse(url))
+end
+
+def fetch_stanzas title, language, books, lines
+  books.each do |book|
+    lines.each do |line|
+      ctsurl_pfx = "http://www.perseus.tufts.edu/hopper/CTS?request="
+      node_urn = "urn:cts:greekLit:tlg0012.tlg00#{title}.perseus-#{language}1:#{book}.#{line}"
+      book = node_urn.split(":").last.split(".")[0]
+      passage_url = "#{ctsurl_pfx}GetPassage&urn=#{node_urn}"
+      passage_xml = open(passage_url)
+      passage_content = Ox.parse(passage_xml)
+      begin
+        line_content = passage_content.nodes[0].nodes[1].nodes[0].nodes[0].nodes[0].nodes[0].nodes[1]
+        if line_content.nil?
+          line_content = passage_content.nodes[0].nodes[1].nodes[0].nodes[0].nodes[0].nodes[0].nodes[0]
+        end
+        puts "#{RomanNumerals.to_roman(book.to_i).cyan}\t#{line.to_s.yellow}: #{line_content.green}"
+      rescue Exception => e
+        if e.message == "undefined method `nodes' for \"3\":String"
+          puts "language: #{language}, book: #{RomanNumerals.to_roman(book.to_i)}, line: #{line} missing?".red
+        else
+          puts e
+        end
+      end
+    end
+  end
+end
+
+fetch_stanzas options[:title], options[:language], options[:books], options[:lines]

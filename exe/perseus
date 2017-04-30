@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'awesome_print'
+require 'perseus'
+
+#node_urn = "urn:cts:latinLit:phi1348.abo022.perseus-lat1"
+# Gets all valid references to that passage
+#refs = Perseus::CorpusReferences.new(node_urn)
+#puts JSON.pretty_generate(refs.to_h)
+
+#passage = Perseus::Passage.new(node_urn, "1.1")
+#puts JSON.pretty_generate(passage.to_h)
+
+#corpora = Perseus::Index.new
+#puts JSON.pretty_generate(corpora.to_h)
+
+author = ARGV[0]
+corpora = Perseus::FileIndex.new
+c = corpora.to_h
+texts = c["TextInventory"]["textgroup"]
+t = texts.map do |e| {author: e["groupname"], work: e["work"]} end
+results = t.select do |e| e[:author].match /#{author}/ end
+
+puts JSON.pretty_generate(results)
+#word = Perseus::Dictionary.new("efhn")
+#puts JSON.pretty_generate(word.to_h)
