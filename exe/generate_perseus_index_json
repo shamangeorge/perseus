@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'perseus'
-require 'perseus/network_index_xml'
-require 'perseus/file_index_xml'
-
-#Perseus::NetworkIndexXML.new.generate_json_indeces
-Perseus::FileIndexXML.new.generate_json_indeces
