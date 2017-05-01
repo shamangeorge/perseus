@@ -9,7 +9,7 @@ module Perseus
     end
 
     def download
-      File.write("data/perseus-index.xml", to_s)
+      File.write(CTS_XML_FILE, to_s)
     end
   end
 end

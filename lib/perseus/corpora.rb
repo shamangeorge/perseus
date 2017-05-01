@@ -4,8 +4,8 @@ require 'perseus/corpus_hash'
 
 module Perseus
   class Corpora
-    def initialize category
-      @elements = JSON.parse(File.read("data/perseus-index-by-#{category}.json")).map do |e|
+    def initialize
+      @elements = JSON.parse(File.read(Perseus::ALL_EDITIONS_JSON)).map do |e|
         Perseus::CorpusHash.new e
       end
       @elements.extend(Hashie::Extensions::DeepLocate)

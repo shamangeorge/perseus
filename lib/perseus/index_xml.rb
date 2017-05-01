@@ -88,9 +88,9 @@ module Perseus
 
     def generate_json_indeces
       puts "Generating index by groupname"
-      File.write("data/perseus-index-by-group.json", JSON.pretty_generate(by_groupname))
+      File.write(Perseus::CTS_BY_GROUP_JSON_FILE, JSON.pretty_generate(by_groupname))
       puts "Generating index by edition"
-      File.write("data/perseus-index-by-edition.json", JSON.pretty_generate(by_edition))
+      File.write(Perseus::ALL_EDITIONS_JSON, JSON.pretty_generate(by_edition))
       puts "DONE".green
     end
   end
