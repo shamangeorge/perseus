@@ -61,7 +61,7 @@ class OptparseExample
     end
 
     def search_a_word(parser)
-      parser.on("--word [WORD]", "Search ancient greek or latin word") do |word|
+      parser.on("--word WORD", "Search ancient greek or latin word") do |word|
         w = Perseus::Dictionary.new(word)
         puts JSON.pretty_generate(w.to_h)
         exit
@@ -69,7 +69,7 @@ class OptparseExample
     end
 
     def get_passage_valid_references(parser)
-      parser.on("--valid_refs [URN]", "Get valid urn's to query passage content") do |urn|
+      parser.on("--valid_refs URN", "Get valid urn's to query passage content") do |urn|
         refs = Perseus::CorpusReferences.new(urn)
         reference_links = refs.to_h["GetValidReff"]["reply"]["reff"]["urn"]
         puts "You are about to get a list of valid references for this passage"
@@ -89,7 +89,7 @@ class OptparseExample
     end
 
     def get_passage(parser)
-      parser.on("--passage [URN]", "Get passage content for given urn") do |urn|
+      parser.on("--passage URN", "Get passage content for given urn") do |urn|
         passage = Perseus::Passage.new(urn)
         puts JSON.pretty_generate(passage.to_h)
         exit
@@ -97,14 +97,14 @@ class OptparseExample
     end
 
     def search_by_title_option(parser)
-      parser.on("--title [TITLE]", "Search by title") do |query|
+      parser.on("--title TITLE", "Search by title") do |query|
         self.search_by = "label"
         self.query = query
       end
     end
 
     def search_by_group_option(parser)
-      parser.on("--author [GROUPNAME/AUTHOR]", "Search by groupname/author") do |query|
+      parser.on("--author GROUPNAME/AUTHOR", "Search by groupname/author") do |query|
         self.search_by = "groupname"
         self.query = query
       end
@@ -131,11 +131,8 @@ class OptparseExample
 end
 
 options = OptparseExample.new.parse(ARGV)
-corpora = Perseus::Corpora.new("edition").all
-if options.query.nil?
-
-else
-  texts = corpora.deep_locate -> (key, value, object) {
+unless options.query.nil?
+  texts = Perseus::Corpora.new.all.deep_locate -> (key, value, object) {
     key == options.search_by && value.include?(options.query)
   }
   puts "Found #{texts.size} editions matching your query: #{options.query}"
