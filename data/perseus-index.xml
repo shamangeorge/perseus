@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TextInventory xmlns="http://chs.harvard.edu/xmlns/cts3/ti" xmlns:dc="http://purl.org/dc/elements/1.1/" tiversion="3.0.rc1">
+  <ctsnamespace abbr="greekLit" ns="http://perseus.org/namespaces/cts/greekLit">
+    <description xml:lang="eng">Greek texts hosted by the Perseus Digital Library</description>
+  </ctsnamespace>
+  <ctsnamespace abbr="latinLit" ns="http://perseus.org/namespaces/cts/latinLit">
+    <description xml:lang="eng">Latin texts hosted by the Perseus Digital Library</description>
+  </ctsnamespace>
+  <collection id="Perseus:collection:Greco-Roman" isdefault="yes">
+    <title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Greek and Roman Materials</title>
+    <creator xmlns="http://purl.org/dc/elements/1.1/">The Perseus Digital Library</creator>
+    <coverage xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Primary and secondary sources for the study of ancient Greece
+			and Rome</coverage>
+    <description xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Primary and secondary sources for the study of ancient Greece
+			and Rome</description>
+    <rights xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Licensed under a Creative Commons Attribution-ShareAlike 3.0 United States License</rights>
+  </collection>
+  <collection id="Perseus:collection:Greco-Roman-protected">
+    <title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Greek and Roman Materials</title>
+    <creator xmlns="http://purl.org/dc/elements/1.1/">The Perseus Digital Library</creator>
+    <coverage xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Primary and secondary sources for the study of ancient Greece
+			and Rome</coverage>
+    <description xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Primary and secondary sources for the study of ancient Greece
+			and Rome</description>
+    <rights xmlns="http://purl.org/dc/elements/1.1/" xml:lang="eng">Content is under copyright.</rights>
+  </collection>
   <textgroup projid="greekLit:tlg4081" urn="urn:cts:greekLit:tlg4081">
     <groupname xml:lang="eng">Colluthus</groupname>
     <work projid="greekLit:tlg001" urn="urn:cts:greekLit:tlg4081.tlg001" xml:lang="grc">

@@ -5,6 +5,7 @@ module Perseus
     def initialize
       puts "Reading from the network"
       @urn = "http://www.perseus.tufts.edu/hopper/CTS?request=GetCapabilities"
+      download
     end
 
     def download
