@@ -45,6 +45,13 @@ Or install it yourself as:
       -h, --help                   Show this message
       --version                    Show version
 
+## screenshots
+
+![by_author](https://raw.githubusercontent.com/shamangeorge/perseus/master/examples/by_author.png)
+![by_title](https://raw.githubusercontent.com/shamangeorge/perseus/master/examples/by_title.png)
+![by_word](https://raw.githubusercontent.com/shamangeorge/perseus/master/examples/by_word.png)
+
+
 ## development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
