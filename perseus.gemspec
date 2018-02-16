@@ -24,10 +24,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_dependency "pry", "~>0.10"
+  spec.add_dependency "pry"
   spec.add_dependency "ox"
   spec.add_dependency "awesome_print"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "activesupport"
   spec.add_dependency "hashie"
+  spec.add_dependency "elasticsearch"
 end
