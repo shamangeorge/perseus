@@ -1,5 +1,8 @@
 # perseus
 
+[![pipeline
+status](https://damos.fruitopology.net/agora/perseus/badges/master/pipeline.svg)](https://damos.fruitopology.net/agora/perseus/commits/master)
+
 #### description
 a ruby gem that provides various wrappers and cli utilities
 around the open APIs provided by
