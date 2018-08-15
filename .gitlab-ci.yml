@@ -2,8 +2,8 @@ image: "ruby:latest"
 
 before_script:
   - gem install bundler
-  - bundle install -j $(nproc) --path vendor
+  - bin/setup
 
-rspec:
+test:
   script:
-  - rspec
+  - bundle exec rspec
