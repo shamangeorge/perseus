@@ -49,9 +49,11 @@ Or install it yourself as:
       --version                    Show version
 
     $ homer --help
-      Usage: <homer> (-iliad or -odyssey) [options]...
-      Fetch content from homers epics by book and line
-
+      options:
+        -b, --book - specify the book
+        -l, --line - specify the line you want to fetch
+        --books - specify the books (ex. --books=[1,4,5)
+        --lines - specify the lines you want to fetch (ex. --lines=[4,25,65]
 
 ## screenshots
 
