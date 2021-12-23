@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 #/ Usage: <homer> (-iliad or -odyssey) [options]...
 #/ Fetch content from homers epics by book and line
+#/ options:
+#/   -b, --book - specify the book
+#/   -l, --line - specify the line you want to fetch
+#/   --books - specify the books (ex. --books=[1,4,5)
+#/   --lines - specify the lines you want to fetch (ex. --lines=[4,25,65]
 # ** Tip: use #/ lines to define the --help usage message.
 $stderr.sync = true
 require 'optparse'
@@ -21,6 +26,7 @@ options = {
   books: [1],#[1, 21, 13]
   lines: [1]#[1, 108, 257]
 }
+
 # parse arguments
 file = __FILE__
 optparse = OptionParser.new do |opts|
@@ -62,6 +68,7 @@ end
 
 def fetch_stanzas title, language, books, lines
   books.each do |book|
+    puts "Book #{book.to_i}".cyan
     lines.each do |line|
       ctsurl_pfx = "http://www.perseus.tufts.edu/hopper/CTS?request="
       node_urn = "urn:cts:greekLit:tlg0012.tlg00#{title}.perseus-#{language}1:#{book}.#{line}"
@@ -69,6 +76,7 @@ def fetch_stanzas title, language, books, lines
       passage_url = "#{ctsurl_pfx}GetPassage&urn=#{node_urn}"
       passage_xml = open(passage_url)
       passage_content = Ox.parse(passage_xml)
+      # TODO: not very user friendly code here
       begin
         line_content = passage_content.nodes[0].nodes[1].nodes[0].nodes[0].nodes[0].nodes[0].nodes[1]
         if line_content.nil?

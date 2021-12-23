@@ -48,6 +48,11 @@ Or install it yourself as:
       -h, --help                   Show this message
       --version                    Show version
 
+    $ homer --help
+      Usage: <homer> (-iliad or -odyssey) [options]...
+      Fetch content from homers epics by book and line
+
+
 ## screenshots
 
 ![by_author](https://raw.githubusercontent.com/shamangeorge/perseus/master/examples/by_author.png)
